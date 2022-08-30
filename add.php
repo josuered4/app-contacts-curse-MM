@@ -1,3 +1,34 @@
+<?php
+  //variable super global, server contiene informacion sobre la peticion mandada
+  if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+    /*var_dump($_POST);
+    die();*/
+
+    $contact = [
+      "name" => $_POST["name"], 
+      "phone_number" => $_POST["phone_number"], 
+    ];
+
+    if(file_exists("contacts.json")){
+      $contacts = json_decode(file_get_contents("contacts.json"), true);
+      // obtenemos y decodificamos el contenido del json para usarlo en la lista
+      //cuando php decodifica un json crea un objeto con lo que decofica, por eso ponermos el true, para que lo combiar en un array
+  
+    }else{
+      $contacts = [];
+    }
+
+    $contacts[] = $contact;
+
+    //funcion para almacenar el contacts  en un archivo json
+    file_put_contents("contacts.json", json_encode($contacts));
+
+    //redireccionamos con un header
+    header("Location: index.php");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,7 +76,7 @@
               <a class="nav-link" href="./index.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./add.html">Add Contact</a>
+              <a class="nav-link" href="./add.php">Add Contact</a>
             </li>
           </ul>
         </div>
@@ -59,7 +90,7 @@
             <div class="card">
               <div class="card-header">Add New Contact</div>
               <div class="card-body">
-                <form>
+                <form method="post" action="add.php">
                   <div class="mb-3 row">
                     <label for="name" class="col-md-4 col-form-label text-md-end">Name</label>
       
