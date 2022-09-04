@@ -4,17 +4,15 @@
 
     /*var_dump($_POST);
     die();*/
-
-    $contact = [
+   
+    /*$contact = [
       "name" => $_POST["name"], 
       "phone_number" => $_POST["phone_number"], 
     ];
-
     if(file_exists("contacts.json")){
       $contacts = json_decode(file_get_contents("contacts.json"), true);
       // obtenemos y decodificamos el contenido del json para usarlo en la lista
       //cuando php decodifica un json crea un objeto con lo que decofica, por eso ponermos el true, para que lo combiar en un array
-  
     }else{
       $contacts = [];
     }
@@ -22,8 +20,14 @@
     $contacts[] = $contact;
 
     //funcion para almacenar el contacts  en un archivo json
-    file_put_contents("contacts.json", json_encode($contacts));
+    file_put_contents("contacts.json", json_encode($contacts));*/
 
+    require "database.php";
+    $name = $_POST["name"];
+    $phoneNumber = $_POST["phone_number"];
+
+    $statement = $conn -> prepare("INSERT INTO contacts(Name, Phone_Number) VALUES('$name', '$phoneNumber')");
+    $statement -> execute();
     //redireccionamos con un header
     header("Location: index.php");
   }

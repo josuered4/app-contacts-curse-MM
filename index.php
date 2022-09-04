@@ -1,19 +1,18 @@
 <?php
-  /*$contacts = [
-    ["name" => "Josue", "phone" => "123432123"],
-    ["name" => "Isaac", "phone" => "123432123"],
-    ["name" => "Reyes", "phone" => "123432123"],
-    ["name" => "Perez", "phone" => "123432123"],
-  ];*/
-
+  /*
   if(file_exists("contacts.json")){
     $contacts = json_decode(file_get_contents("contacts.json"), true);
     // obtenemos y decodificamos el contenido del json para usarlo en la lista
     //cuando php decodifica un json crea un objeto con lo que decofica, por eso ponermos el true, para que lo combiar en un array
-
   }else{
     $contacts = [];
-  }
+  }*/
+
+  require "database.php";
+
+  //query manda los datos en formato lista 
+  $contacts = $conn->query("SELECT * FROM contacts");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +82,7 @@
             </div>
           </div>-->
 
-          <?php if(count($contacts)==0):?>
+          <?php if($contacts->rowCount()==0):?>
             <div class="col-md-4 mx-auto">
               <div class="card card-body text-center">
                 <p>No contacts saved yet</p>
@@ -96,8 +95,8 @@
             <div class="col-md-4 mb-3">
               <div class="card text-center">
                 <div class="card-body">
-                  <h3 class="card-title text-capitalize"><?= $contact["name"]; ?></h3>
-                  <p class="m-2"><?= $contact["phone_number"]; ?></p>
+                  <h3 class="card-title text-capitalize"><?= $contact["Name"]; ?></h3>
+                  <p class="m-2"><?= $contact["Phone_Number"]; ?></p>
                   <a href="#" class="btn btn-secondary mb-2">Edit Contact</a>
                   <a href="#" class="btn btn-danger mb-2">Delete Contact</a>
                 </div>
