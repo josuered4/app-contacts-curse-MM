@@ -98,7 +98,8 @@
                   <h3 class="card-title text-capitalize"><?= $contact["Name"]; ?></h3>
                   <p class="m-2"><?= $contact["Phone_Number"]; ?></p>
                   <a href="#" class="btn btn-secondary mb-2">Edit Contact</a>
-                  <a href="#" class="btn btn-danger mb-2">Delete Contact</a>
+                  <a href="delete.php?id=<?=$contact["id"]?>" class="btn btn-danger mb-2">Delete Contact</a>
+                  <!--redireccionamos al delete y le concatenamos el id-->
                 </div>
               </div>
             </div>
